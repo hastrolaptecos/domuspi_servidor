@@ -39,7 +39,7 @@ class Switchs(Db):
     return self.query_one("SELECT * FROM switchs where id = '" + str(id) + "'")
 
   def update_state(self,id,state):
-    return self.query_one("UPDATE switchs SET state = '" + state + "' where id = '" + str(id) + "'")
+    return self.query_one("UPDATE switchs SET state = '" + str(state) + "' where id = '" + str(id) + "'")
 
   def get_all(self):
     return self.query("SELECT * FROM switchs")
