@@ -46,17 +46,17 @@ class Db(object):
     self.load_cursor()
     self.cursor.execute(query)
     rs = self.cursor.fetchone()
-    self.unload_cursor()
     return rs
   
   def query(self, query):
     self.load_cursor()
     self.cursor.execute(query)
     rs =  self.cursor.fetchall()
-    self.unload_cursor()
     return rs
 
   def update(self, query):
-    self.cursor.query(query)
+    
+    self.cursor.execute(query)
+    self.cursor.commit()
     self.commit()
     
