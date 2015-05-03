@@ -33,6 +33,7 @@ class Db(object):
     self.mysql.select_db(self.db)
 
   def disconnection(self):
+    self.cursor.close()
     self.mysql.close()
 
   def charge_cursor(self):
