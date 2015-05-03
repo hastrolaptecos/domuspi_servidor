@@ -52,6 +52,6 @@ class Db(object):
     return rs
 
   def update(self, query):
-    self.cursor.execute(query)
+    self.query(query)
     self.commit()
     
