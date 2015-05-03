@@ -16,7 +16,9 @@ class SwitchController:
     self.switch_data = self.switch_db.find_by_id(id)
     
     self.GPIO_pin = self.switch_data['code']
-  
+    
+    self.setup_controller();
+
   def setup_controller(self):
     self.gpio_controller = Adafruit_MCP230xx.Adafruit_MCP230XX(address = 0x20, num_gpios = 16)
     self.set_output()
