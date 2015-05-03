@@ -1,6 +1,7 @@
 from functools import wraps
 from flask import Flask, session, redirect, url_for, escape, request, Response
 
+
 #dev
 from user import *
 from switchs import *
@@ -41,7 +42,7 @@ def switch():
 @requires_auth
 def switchs():
   switchs = Switchs()
-  return switchs.get_all();
+  ResponseController.json_response(switchs.get_all());
 
 #############
 @app.route("/auth/login")

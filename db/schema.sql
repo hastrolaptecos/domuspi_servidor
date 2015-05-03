@@ -25,5 +25,8 @@ CREATE TABLE switchs(
   code INTEGER,
   state INTEGER,
   PRIMARY KEY(id)
-)
+);
 
+
+-- SEED
+INSERT INTO users(name,login,password) VALUES('ADMIN','domuspi','domuspi');
