@@ -3,6 +3,7 @@ from flask import Flask, session, redirect, url_for, escape, request, Response
 
 
 #dev
+from response_controller import *
 from user import *
 from switchs import *
 
