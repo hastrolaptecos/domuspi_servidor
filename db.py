@@ -57,8 +57,6 @@ class Db(object):
     return rs
 
   def update(self, query):
-    self.load_cursor()
-    self.query(query)
+    self.cursor.query(query)
     self.commit()
-    self.unload_cursor()
     
