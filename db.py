@@ -56,5 +56,5 @@ class Db(object):
 
   def update(self, query):
     self.cursor.execute(query)
-    self.commit()
+    self.mysql.commit()
     
