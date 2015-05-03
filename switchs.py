@@ -29,11 +29,11 @@ class SwitchController:
     self.gpio_controller.config(self.GPIO_pin, self.gpio_controller.OUTPUT)
   
   def on(self):
-    # self.switch_db.update_state(self.switch_data['id'], self.ON)    
+    self.switch_db.update_state(self.switch_data['id'], self.ON)    
     self.gpio_controller.output(self.GPIO_pin, self.ON)
 
   def off(self):
-    # self.switch_db.update_state(self.switch_data['id'], self.OFF)    
+    self.switch_db.update_state(self.switch_data['id'], self.OFF)    
     self.gpio_controller.output(self.GPIO_pin, self.OFF)
 
 
@@ -43,7 +43,7 @@ class Switchs(Db):
     return self.query_one("SELECT * FROM switchs where id = '" + str(id) + "'")
 
   def update_state(self,id,state):
-    return self.query_one("UPDATE switchs SET state = " + str(state) + " WHERE id = '" + str(id) + "'")
+    return self.update("UPDATE switchs SET state = " + str(state) + " WHERE id = '" + str(id) + "'")
 
   def get_all(self):
     return self.query("SELECT * FROM switchs")

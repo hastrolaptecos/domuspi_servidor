@@ -37,16 +37,20 @@ def home():
 @app.route("/switch/update/")
 @requires_auth
 def switch():
+
   _id = request.args.get('id')
   state = request.args.get('state')
-  switch = SwitchController(_id)
-  if(state == "1"):
-    switch.on()
-    return "on"
+  if(_id <= 10):
+    switch = SwitchController(_id)
+    
+    if(state == "1"):
+      switch.on()
+      return "on"
+    else:
+      switch.off()
+      return "off"
   else:
-    switch.off()
-    return "off"
-
+    return 'ERROR'
 
 @app.route("/switch")
 @requires_auth

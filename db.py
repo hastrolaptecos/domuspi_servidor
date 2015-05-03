@@ -53,5 +53,5 @@ class Db(object):
 
   def update(self, query):
     self.cursor.execute(query)
-    rs =  self.cursor.commit()
+    self.cursor.commit()
     self.disconnection()
