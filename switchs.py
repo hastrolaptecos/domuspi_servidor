@@ -4,6 +4,8 @@ sys.path.insert(0, 'lib/')
 import Adafruit_MCP230xx
 from db import *
 
+bus_controller = Adafruit_MCP230xx.Adafruit_MCP230XX(address = 0x20, num_gpios = 16)
+
 class SwitchController:
 
   ON = 1
@@ -20,7 +22,7 @@ class SwitchController:
     self.setup_controller();
 
   def setup_controller(self):
-    self.gpio_controller = Adafruit_MCP230xx.Adafruit_MCP230XX(address = 0x20, num_gpios = 16)
+    self.gpio_controller = bus_controller
     self.set_output()
 
   def set_output(self):
