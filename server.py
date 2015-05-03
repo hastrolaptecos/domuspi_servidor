@@ -43,7 +43,7 @@ def switch():
 @requires_auth
 def switchs():
   switchs = Switchs()
-  ResponseController.json_response(switchs.get_all());
+  return ResponseController.json_response(switchs.get_all());
 
 #############
 @app.route("/auth/login")
