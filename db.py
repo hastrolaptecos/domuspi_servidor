@@ -21,7 +21,6 @@ class Db(object):
 
     self.connect()
     self.set_db()
-    self.charge_cursor()
 
   def connect(self):
     try:
@@ -34,25 +33,32 @@ class Db(object):
 
   def disconnection(self):
     self.cursor.close()
-    self.mysql.close()
 
-  def charge_cursor(self):
+  def load_cursor(self):
     if self.cursor is None:
       self.cursor = self.mysql.cursor(MySQLdb.cursors.DictCursor)
 
+  def unload_cursor(self):
+    if not self.cursor is None:
+      self.mysql.close()
+    
   def query_one(self, query):
+    self.load_cursor()
     self.cursor.execute(query)
     rs = self.cursor.fetchone()
-    self.disconnection()
+    self.unload_cursor()
     return rs
   
   def query(self, query):
+    self.load_cursor()
     self.cursor.execute(query)
     rs =  self.cursor.fetchall()
-    self.disconnection()
+    self.unload_cursor()
     return rs
 
   def update(self, query):
+    self.load_cursor()
     self.query(query)
     self.commit()
+    self.unload_cursor()
     
