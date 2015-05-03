@@ -2,7 +2,8 @@ from functools import wraps
 from flask import Flask, session, redirect, url_for, escape, request, Response
 
 #dev
-from db import *
+from user import *
+from switchs import *
 
 
 app = Flask(__name__)
@@ -14,7 +15,7 @@ app.config['MYSQL_DATABASE_DB'] = 'domuspi'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 
 
-db = Db(app)
+# db = Db(app)
 
 def islogged():
   return session['login'] == True
@@ -31,15 +32,16 @@ def requires_auth(f):
 def home():
   return "Follow <a href='https://github.com/hastrolaptecos/homeautomation'>https://github.com/hastrolaptecos/homeautomation</a>"
 
-@app.route("/switch/<id>")
+@app.route("/switch/<id>/state")
 @requires_auth
 def switch():
   return ""
 
 @app.route("/switchs")
 @requires_auth
-def myswitchs():
-  return "";
+def switchs():
+  switchs = Switchs()
+  return switchs.get_all();
 
 #############
 @app.route("/auth/login")
@@ -47,14 +49,14 @@ def login():
   login = request.args.get('login')
   password = request.args.get('password')
 
-  data = db.find_user_by_login(login)
+  data = User().find_by_login(login)
   if data is None:
     return "Username is wrong."
   else: 
     print data
-    if data[3] == password:
+    if data['password'] == password:
       session['login'] = True
-      session['_id'] = data[0]
+      session['_id'] = data['id']
       return "Logged in successfully."
     else:
       return "Password is wrong."

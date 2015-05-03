@@ -1,27 +1,57 @@
-from flaskext.mysql import MySQL
+import MySQLdb 
+
+ 
+dsn = {
+  'user':'domuspi',
+  'password':'domuspi',
+  'db':'domuspi',
+  'host':'localhost',
+}
 
 class Db(object):
 
   cursor = None
 
-  def __init__(self, app):
-    self.mysql = MySQL() 
-    self.mysql.init_app(app)
+  def __init__(self):
+    
+    self.db = dsn['db']
+    self.host = dsn['host']
+    self.user = dsn['user']
+    self.password = dsn['password']
+
+    self.connect()
+    self.set_db()
     self.charge_cursor()
-  
+
+  def connect(self):
+    try:
+      self.mysql = MySQLdb.connect(self.host, self.user, self.password)
+    except MySQLdb.Error, e:
+      print "DB CONNECTION ERROR", e
+
+  def set_db(self):
+    self.mysql.select_db(self.db)
+
+  def disconnection(self):
+    self.mysql.close()
+
   def charge_cursor(self):
     if self.cursor is None:
-      self.cursor = self.mysql.connect().cursor()
+      self.cursor = self.mysql.cursor(MySQLdb.cursors.DictCursor)
 
   def query_one(self, query):
     self.cursor.execute(query)
-    return self.cursor.fetchone()
-
-
-  def find_user_by_login(self, login):
-    query = "SELECT * FROM users where login='" + login + "'"
-    print query;
-    return self.query_one(query)
+    rs = self.cursor.fetchone()
+    self.disconnection()
+    return rs
   
-  def find_user_by_id(self, id):
-    return self.query_one("SELECT * FROM users where id='" + id + "'")
+  def query(self, query):
+    self.cursor.execute(query)
+    rs =  self.cursor.fetchall()
+    self.disconnection()
+    return rs
+
+  def update(self, query):
+    self.cursor.execute(query)
+    rs =  self.cursor.commit()
+    self.disconnection()
