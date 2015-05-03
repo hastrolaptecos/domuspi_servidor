@@ -47,3 +47,12 @@ class Switchs(Db):
 
   def get_all(self):
     return self.query("SELECT * FROM switchs")
+
+
+class ResetSwitchs:
+  @staticmethod
+  def resetAll():
+    switch_db = Switchs()
+    switchs = switch_db.get_all();
+    for switch in switchs:
+      switch_db.update_state(switch['id'],0)
