@@ -53,7 +53,7 @@ class Db(object):
     self.cursor.execute(query)
     rs =  self.cursor.fetchall()
     return rs
-
+ 
   def update(self, query):
     self.cursor.execute(query)
     self.mysql.commit()
