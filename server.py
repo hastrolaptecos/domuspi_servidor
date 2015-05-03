@@ -34,12 +34,21 @@ def requires_auth(f):
 def home():
   return "Follow <a href='https://github.com/hastrolaptecos/homeautomation'>https://github.com/hastrolaptecos/homeautomation</a>"
 
-@app.route("/switch/<id>/state")
+@app.route("/switch/update/")
 @requires_auth
 def switch():
-  return ""
+  _id = request.args.get('id')
+  state = request.args.get('state')
+  switch = SwitchController(_id)
+  if(state == 1):
+    switch.on()
+    return "on"
+  else:
+    switch.off()
+    return "off"
 
-@app.route("/switchs")
+
+@app.route("/switch")
 @requires_auth
 def switchs():
   switchs = Switchs()

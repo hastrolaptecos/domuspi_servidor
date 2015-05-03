@@ -18,16 +18,19 @@ class SwitchController:
     self.GPIO_pin = self.switch_data[code]
   
   def setup_controller(self):
-    self.gpio_controller = Adafruit_MCP230xx.Adafruit_MCP230XX(address=0x20, num_gpios=16)
+    self.gpio_controller = Adafruit_MCP230xx.Adafruit_MCP230XX(address = 0x20, num_gpios = 16)
+    self.set_output()
 
   def set_output(self):
     self.gpio_controller.config(self.GPIO_pin, self.gpio_controller.OUTPUT)
   
   def on(self):
-    self.output(self.GPIO_pin,self.ON)
+    self.switch_db.update_state(self.switch_data['id'], self.ON)    
+    self.output(self.GPIO_pin, self.ON)
 
   def off(self):
-    self.output(self.GPIO_pin,self.OFF)
+    self.switch_db.update_state(self.switch_data['id'], self.OFF)    
+    self.output(self.GPIO_pinl, self.OFF)
 
 
 class Switchs(Db):
