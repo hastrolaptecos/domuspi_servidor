@@ -25,11 +25,11 @@ class SwitchController:
     self.gpio_controller.config(self.GPIO_pin, self.gpio_controller.OUTPUT)
   
   def on(self):
-    self.switch_db.update_state(self.switch_data['id'], self.ON)    
+    # self.switch_db.update_state(self.switch_data['id'], self.ON)    
     self.output(self.GPIO_pin, self.ON)
 
   def off(self):
-    self.switch_db.update_state(self.switch_data['id'], self.OFF)    
+    # self.switch_db.update_state(self.switch_data['id'], self.OFF)    
     self.output(self.GPIO_pinl, self.OFF)
 
 
