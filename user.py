@@ -9,4 +9,4 @@ class User(Db):
     return self.query_one(query)
   
   def find_by_id(self, id):
-    return self.query_one("SELECT * FROM users where id='" + id + "'")
+    return self.query_one("SELECT * FROM users where id='" + str(id) + "'")
