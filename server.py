@@ -40,7 +40,7 @@ def switch():
   _id = request.args.get('id')
   state = request.args.get('state')
   switch = SwitchController(_id)
-  if(state == 1):
+  if(state == "1"):
     switch.on()
     return "on"
   else:
