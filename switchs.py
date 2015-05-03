@@ -32,7 +32,7 @@ class SwitchController:
 
   def off(self):
     # self.switch_db.update_state(self.switch_data['id'], self.OFF)    
-    self.gpio_controller.output(self.GPIO_pinl, self.OFF)
+    self.gpio_controller.output(self.GPIO_pin, self.OFF)
 
 
 class Switchs(Db):
